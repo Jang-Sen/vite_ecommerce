@@ -1,0 +1,32 @@
+services:
+  vite_ecommerce-nginx:
+    container_name: vite_ecommerce-nginx-dev
+    image: nginx:stable-alpine
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    ports:
+      - "83:80"
+      - "446:443"
+    depends_on:
+      - vite_ecommerce-front
+    networks:
+      - vite_ecommerce-net
+
+  vite_ecommerce-front:
+    container_name: vite_ecommerce-front-dev
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "5171:5173"
+    networks:
+      - vite_ecommerce-net
+
+networks:
+  vite_ecommerce-net:
+    driver: bridge
