@@ -5,6 +5,7 @@ import Error from '../pages/Error.tsx';
 import ProductList from '../pages/product/ProductList.tsx';
 import Product from '../pages/product/Product.tsx';
 import CreateProduct from '../pages/product/CreateProduct.tsx';
+import UpdateProduct from '../pages/product/UpdateProduct.tsx';
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: '/product/new',
         element: <CreateProduct />,
+      },
+      {
+        path: '/product/update/:productId',
+        element: <UpdateProduct />,
       },
     ],
   },
